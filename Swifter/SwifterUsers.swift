@@ -45,12 +45,13 @@ public extension Swifter {
 
     Returns an HTTP 200 OK response code and a representation of the requesting user if authentication was successful; returns a 401 status code and an error message if not. Use this method to test if supplied user credentials are valid.
     */
-    public func getAccountVerifyCredentials(includeEntities: Bool? = nil, skipStatus: Bool? = nil, success: ((myInfo: Dictionary<String, JSONValue>?) -> Void)? = nil, failure: FailureHandler? = nil) {
+    public func getAccountVerifyCredentials(includeEntities: Bool? = nil, skipStatus: Bool? = nil, includeEmail: Bool? = nil, success: ((myInfo: Dictionary<String, JSONValue>?) -> Void)? = nil, failure: FailureHandler? = nil) {
         let path = "account/verify_credentials.json"
 
         var parameters = Dictionary<String, Any>()
         parameters["include_entities"] ??= includeEntities
         parameters["skip_status"] ??= skipStatus
+        parameters["include_email"] ??= includeEmail
 
         self.getJSONWithPath(path, baseURL: self.apiURL, parameters: parameters, success: { json, _ in
             success?(myInfo: json.object)
